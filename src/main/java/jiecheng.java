@@ -1,6 +1,10 @@
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+/**
+ * 计算100！的阶乘
+ */
+
 public class jiecheng {
     public static BigDecimal factorial(BigDecimal n){
         BigDecimal bd1 = new BigDecimal(1);//BigDecimal类型的1
