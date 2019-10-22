@@ -1,3 +1,5 @@
+package MyMath;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -17,16 +19,9 @@ public class jiecheng {
         return result;
     }
     public static void main(String[] arguments){
-      /*  Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         BigDecimal n = sc.nextBigDecimal();
-        System.out.print(n + "!=" + factorial(n));*/
-
-        BigDecimal a = new BigDecimal(2);
-        BigDecimal b = new BigDecimal(3);
-        BigDecimal c = new BigDecimal(4);
-
-        c=a.add(b);
-        System.out.println(c);
+        System.out.print(n + "!=" + factorial(n));
 
     }
 
