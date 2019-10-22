@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 /**
- * 计算100！的阶乘
+ * 计算100！的阶乘算法
  */
 
 public class jiecheng {
