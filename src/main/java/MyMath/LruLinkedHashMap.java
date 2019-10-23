@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 有关测试LRU 算 法
- * 利用LinkedHashMap实现简单的缓存， 必须实现removeEldestEntry方法，具体参见JDK文档
+ * 利用LinkedHashMap实现简单的缓存 ， 必须实现removeEldestEntry方法，具体参见JDK文档
  */
 
 
