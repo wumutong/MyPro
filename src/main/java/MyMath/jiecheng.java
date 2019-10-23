@@ -22,7 +22,6 @@ public class jiecheng {
         Scanner sc = new Scanner(System.in);
         BigDecimal n = sc.nextBigDecimal();
         System.out.print(n + "!=" + factorial(n));
-
     }
 
 }
