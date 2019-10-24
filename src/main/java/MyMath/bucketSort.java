@@ -1,7 +1,6 @@
 package MyMath;
 
 import java.util.Scanner;
-
 import static java.lang.Integer.parseInt;
 
 /**
@@ -36,7 +35,6 @@ public class bucketSort {
                 for(int flag = 1;flag<=bucket[result];flag++)
                     System.out.print(result+" ");
             }
-
         }
 
     }
