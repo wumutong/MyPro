@@ -12,6 +12,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   *  标准差=sqrt(((x1-x)^2 +(x2-x)^2 +......(xn-x)^2)/n)。
   *  x表示样本的平均数，n表示样本的数量，xi表示个体，而s^2就表示方差。
   *  方差=s^2=1/n{ (x1-x)^2 +(x2-x)^2 +......(xn-x)^2) } 最后除以（n-1）而不是n
+  *  因为spark 使用的是无偏方差
   *  相关链接:https://blog.csdn.net/qq_16587307/article/details/81328773
   *  平方差=a²-b²=(a+b)(a-b)。
   */
