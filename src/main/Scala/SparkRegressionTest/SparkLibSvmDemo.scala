@@ -1,58 +1,52 @@
 package SparkRegressionTest
 
 import org.apache.spark.mllib.classification.SVMWithSGD
-import org.apache.spark.mllib.evaluation.MulticlassMetrics
+import org.apache.spark.mllib.evaluation.{BinaryClassificationMetrics, MulticlassMetrics}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.mllib.util.MLUtils
 
 /**
   * 使用spark Svm 进行 支持向量机运行测试
-  *
   */
 object SparkLibSvmDemo {
   def main(args: Array[String]): Unit = {
     val sc: SparkContext = new SparkContext(new SparkConf().setMaster("local").setAppName("testRegressionSvmDemo"))
     //1 读取样本数据
-
     val data_path = "src\\resources\\regressionSVMTest"
 
-    val examples = MLUtils.loadLibSVMFile(sc, data_path).cache()
+    // 加载 LIBSVM 格式的数据
+    val data = MLUtils.loadLibSVMFile(sc, data_path)
 
-    //2 样本数据划分训练样本与测试样本
+    // 切分数据，60%用于训练，40%用于测试
+    val splits = data.randomSplit(Array(0.6, 0.4), seed = 11L)
+    val training = data.cache()
+    val test = data
 
-    val splits = examples.randomSplit(Array(0.6, 0.4), seed = 11L)
+    // 运行训练算法 来构建模型
+    val numIterations = 100
+    val model = SVMWithSGD.train(training, numIterations) // 随机梯度下降法
 
-    val training = splits(0).cache()
+    // 清空默认值
+    model.clearThreshold()
 
-    val test = splits(1)
+    // 用训练集计算原始分数
+    val scoreAndLabels = test.map { point =>
+      val score = model.predict(point.features)
+      (score, point.label)
+    }
 
-    val numTraining = training.count()
+    val result = scoreAndLabels.map { t =>
+      val str = "point.label=" + t._2 + " score= " + t._1
+      println("*********************************************************************************"+str)
+      str
+    }
+    result.collect()
 
-    val numTest = test.count()
+    // 获得评价指标
+    val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+    val auROC = metrics.areaUnderROC() //受试者操作特征
+    println("Area under ROC = " + auROC+"**********************************************************************")
 
-    println(s"Training: $numTraining, test: $numTest.")
-
-    //3 新建SVM模型，并设置训练参数
-
-    val numIterations = 1000
-
-    val stepSize = 1
-
-    val miniBatchFraction = 1.0
-
-    val model = SVMWithSGD.train(training, numIterations, stepSize, miniBatchFraction)
-    //4 对测试样本进行测试
-
-    val prediction = model.predict(test.map(_.features))
-
-    val predictionAndLabel = prediction.zip(test.map(_.label))
-
-    //5 计算测试误差
-
-    val metrics = new MulticlassMetrics(predictionAndLabel)
-
-    val precision = metrics.precision
-
-    println("Precision = " + precision)
+    sc.stop()
   }
 }
