@@ -6,14 +6,17 @@ import org.apache.spark.api.java.JavaRDD;
 import  org.apache.spark.api.java.JavaSparkContext;
 import  org.apache.spark.mllib.classification.SVMModel;
 import  org.apache.spark.mllib.classification.SVMWithSGD;
-import  org.apache.spark.mllib.evaluation.BinaryClassificationMetrics;
 import org.apache.spark.mllib.linalg.Vectors;
 import  org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.api.java.function.Function;
 import scala.Tuple2;
 
+/**
+ * 鹏哥 简书
+ */
 public class TestSvmDemo {
     public static void main(String[] args) {
+        System.setProperty("hadoop.home.dir","D:\\hadoop-2.7.2\\bin");
         //创建sc对象
         SparkConf conf = new SparkConf().setAppName("SVM").setMaster("local");
         JavaSparkContext sc = new  JavaSparkContext(conf);
@@ -42,7 +45,6 @@ public class TestSvmDemo {
                 }
         });
 
-        System.out.println("----------------------------------------------------------------");
         //因为Svm只是支持 2元回归，（就是两类数据）。所以我们需要
         //去除上面生成的label = 2带标签的数据
 
