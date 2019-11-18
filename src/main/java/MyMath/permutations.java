@@ -5,7 +5,7 @@ package MyMath;
  * @Describe: 全排列
  */
 public class permutations {
-    public static char[] text = {'a','b','c','d'};
+    public static char[] text = {'a','b','c'};
     public static void main(String[] args) {
         permutation(text,0,text.length);
     }
