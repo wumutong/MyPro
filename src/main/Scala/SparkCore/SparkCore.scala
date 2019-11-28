@@ -13,8 +13,8 @@ object SparkCore {
       .textFile("src\\resources\\Word.txt")
 
 
-    val tuples: Array[(String, Int)] = spark.flatMap(_.split(" ")).map((_, 1))
-      .reduceByKey(_ + _).sortBy(_._2, false).collect()
+    val tuples = spark.flatMap(_.split(" ")).map((_, 1))
+      .reduceByKey(_ + _).sortBy(_._2, false).foreach(line => println(line._1,line._2))
 
 
   }
